@@ -57,6 +57,7 @@ struct MoviesList: ConnectedView {
             NavigationLink(destination: MovieDetail(movieId: id), tag: String(id), selection:$selectedItem) {
                 MovieRow(movieId: id)
             }
+            .accessibilityIdentifier("movies.movie.\(id)")
         }
     }
     
@@ -116,6 +117,7 @@ struct MoviesList: ConnectedView {
         SearchField(searchTextWrapper: searchTextWrapper,
                     placeholder: "Search any movies or person",
                     isSearching: $isSearching)
+        .accessibilityIdentifier("movies.searchField")
         .onPreferenceChange(OffsetTopPreferenceKey.self) { _ in
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }

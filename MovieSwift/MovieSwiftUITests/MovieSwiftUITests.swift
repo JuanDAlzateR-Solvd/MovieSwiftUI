@@ -28,10 +28,16 @@ final class MovieSwiftUITests: XCTestCase {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
-
+        XCTAssertTrue(app.exists)
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // XCUIAutomation Documentation
         // https://developer.apple.com/documentation/xcuiautomation
+    }
+    
+    func test_appLaunches() {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.exists)
     }
 
     @MainActor

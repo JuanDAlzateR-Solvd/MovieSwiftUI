@@ -43,6 +43,7 @@ public struct SearchField : View {
                 Image(systemName: "magnifyingglass")
                 TextField(self.placeholder,
                           text: self.$searchTextWrapper.searchText)
+                .accessibility(identifier: "movies.searchField")
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                 if !self.searchTextWrapper.searchText.isEmpty {

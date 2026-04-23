@@ -10,6 +10,10 @@
 import XCTest
 
 final class HomeScreen: BaseScreen {
+    
+    struct DisplayedMoviesSnapshot: Equatable {
+        let movieIdentifiers: [String]
+    }
 
     private enum Identifiers {
         static let searchField = "movies.searchField"
@@ -17,55 +21,110 @@ final class HomeScreen: BaseScreen {
         static let moviesMoviePrefix = "movies.movie."
     }
 
+    private var lastSearchQuery: String?
+
     private var searchField: XCUIElement {
-        app.descendants(matching: .any)[Identifiers.searchField]
+        app.textFields[Identifiers.searchField]     
     }
-    
+
     override var loadableElement: XCUIElement {
-        searchField
+        movieItems.firstMatch
     }
 
     private var movieItems: XCUIElementQuery {
-           let homePredicate = NSPredicate(
-               format: "identifier BEGINSWITH %@",
-               Identifiers.homeMoviePrefix
-           )
+        let homePredicate = NSPredicate(
+            format: "identifier BEGINSWITH %@",
+            Identifiers.homeMoviePrefix
+        )
 
-           let moviesPredicate = NSPredicate(
-               format: "identifier BEGINSWITH %@",
-               Identifiers.moviesMoviePrefix
-           )
+        let moviesPredicate = NSPredicate(
+            format: "identifier BEGINSWITH %@",
+            Identifiers.moviesMoviePrefix
+        )
 
-           let combinedPredicate = NSCompoundPredicate(
-               orPredicateWithSubpredicates: [homePredicate, moviesPredicate]
-           )
+        let combinedPredicate = NSCompoundPredicate(
+            orPredicateWithSubpredicates: [homePredicate, moviesPredicate]
+        )
 
-           return app.descendants(matching: .any).matching(combinedPredicate)
-       }
+        return app.descendants(matching: .any).matching(combinedPredicate)
+    }
 
     @discardableResult
     func waitForHomeFeedToLoad(timeout: TimeInterval = 10) -> Self {
         waitUntilLoaded(timeout: timeout)
-
-        let firstMovie = movieItems.firstMatch
-        XCTAssertTrue(
-            firstMovie.waitForExistence(timeout: timeout),
-            "Expected at least one movie item in Home feed."
-        )
-
         return self
     }
 
     @discardableResult
     func tapOnFirstMovie(timeout: TimeInterval = 10) -> Self {
         let firstMovie = movieItems.firstMatch
+        firstMovie.waitUntilExists(timeout: timeout)
+        firstMovie.tapWhenHittable(timeout: timeout)        
+        return self
+    }
 
-        XCTAssertTrue(
-            firstMovie.waitForExistence(timeout: timeout),
-            "Could not find first movie item in Home feed."
+    @discardableResult
+    func searchMovie(_ query: String, timeout: TimeInterval = 10) -> Self {
+        lastSearchQuery = query
+        searchField.waitUntilExists(timeout: timeout)
+        searchField.typeTextWhenHittable(query, timeout: timeout)
+        return self
+    }
+
+    @discardableResult
+    func waitForSearchResultsToLoad(timeout: TimeInterval = 10) -> Self {
+        guard let query = lastSearchQuery, !query.isEmpty else {
+            XCTFail("Search query was not set before waiting for search results.")
+            return self
+        }
+        
+        app.dismissKeyboardIfPresent()
+        
+        let resultsHeader = app.staticTexts["Results for \(query)"]
+        resultsHeader.waitUntilExists(timeout: timeout)
+
+        let firstMovie = movieItems.firstMatch
+        firstMovie.waitUntilExists(timeout: timeout)
+
+        return self
+    }
+        
+    func captureDisplayedMoviesSnapshot(
+        limit: Int = 3,
+        timeout: TimeInterval = 10
+    ) -> DisplayedMoviesSnapshot {
+        let firstMovie = movieItems.firstMatch
+        firstMovie.waitUntilExists(timeout: timeout)
+
+        let visibleCount = min(movieItems.count, limit)
+        var identifiers: [String] = []
+
+        for index in 0..<visibleCount {
+            let movie = movieItems.element(boundBy: index)
+            movie.waitUntilExists(timeout: timeout)
+            identifiers.append(movie.identifier)
+        }
+
+        return DisplayedMoviesSnapshot(movieIdentifiers: identifiers)
+    }
+
+    @discardableResult
+    func assertDisplayedMoviesChanged(
+        comparedTo previousSnapshot: DisplayedMoviesSnapshot,
+        timeout: TimeInterval = 10,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        let currentSnapshot = captureDisplayedMoviesSnapshot(limit: previousSnapshot.movieIdentifiers.count, timeout: timeout)
+
+        XCTAssertNotEqual(
+            currentSnapshot,
+            previousSnapshot,
+            "Expected displayed movies to change, but the visible movie identifiers remained the same.",
+            file: file,
+            line: line
         )
 
-        firstMovie.tap()
         return self
     }
 }

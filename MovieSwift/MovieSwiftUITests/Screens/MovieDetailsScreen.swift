@@ -32,12 +32,7 @@ final class MovieDetailsScreen: BaseScreen {
     @discardableResult
     func assertMovieDetailsAreDisplayed(timeout: TimeInterval = 10) -> Self {
         waitUntilLoaded(timeout: timeout)
-
-        XCTAssertTrue(
-            overview.waitForExistence(timeout: timeout),
-            "Overview details are not visible."
-        )
-
+        addButton.waitUntilExists(timeout: timeout)
         return self
     }
 }

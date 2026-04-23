@@ -8,7 +8,7 @@
 
 import XCTest
 
-final class UITests2: XCTestCase {
+final class UITests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,22 +23,8 @@ final class UITests2: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+
     func test_appLaunches() {
-        let app = XCUIApplication()
-        app.launch()
-        XCTAssertTrue(app.exists)
-        
-        let boton = app.buttons["movies.movie.1226863"]
-        
-        if boton.waitForExistence(timeout: 5) {
-            boton.tap()
-        } else {
-            XCTFail("No se encontró el elemento con el identificador proporcionado.")
-        }
-        
-    }
-    
-    func test_appLaunches2() {
         let app = XCUIApplication()
         app.launch()
         XCTAssertTrue(app.exists)
@@ -53,7 +39,6 @@ final class UITests2: XCTestCase {
         let totalMovies = movieElements.count
         print("Found \(totalMovies) movies")
         
-
         movieElements.element(boundBy: 0).tap()
         
     }
@@ -71,6 +56,44 @@ final class UITests2: XCTestCase {
             .assertMovieDetailsAreDisplayed()
     }
     
+    func test_homeFeedLoads() {
+           let app = XCUIApplication()
+           app.launch()
+
+           app
+               .on(HomeScreen.self)
+               .waitForHomeFeedToLoad()
+       }
+
+    func test_openMovieDetailsFromSearchResults() {
+        let app = XCUIApplication()
+        app.launch()
+
+        app
+            .on(HomeScreen.self)
+            .waitForHomeFeedToLoad()
+            .searchMovie("batman")
+            .waitForSearchResultsToLoad()
+            .tapOnFirstMovie()
+            .on(MovieDetailsScreen.self)
+            .assertMovieDetailsAreDisplayed()
+    }
+    
+    func test_searchChangesDisplayedContent() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let homeScreen = app
+            .on(HomeScreen.self)
+            .waitForHomeFeedToLoad()
+
+        let initialSnapshot = homeScreen.captureDisplayedMoviesSnapshot()
+
+        homeScreen
+            .searchMovie("batman")
+            .waitForSearchResultsToLoad()
+            .assertDisplayedMoviesChanged(comparedTo: initialSnapshot)
+    }
     
 }
 

@@ -19,6 +19,7 @@ final class HomeScreen: BaseScreen {
         static let searchField = "movies.searchField"
         static let homeMoviePrefix = "home.movie."
         static let moviesMoviePrefix = "movies.movie."
+        static let homeSectionPrefix = "home.section."
     }
 
     private var lastSearchQuery: String?
@@ -26,7 +27,7 @@ final class HomeScreen: BaseScreen {
     private var searchField: XCUIElement {
         app.textFields[Identifiers.searchField]     
     }
-
+    
     override var loadableElement: XCUIElement {
         movieItems.firstMatch
     }
@@ -47,6 +48,28 @@ final class HomeScreen: BaseScreen {
         )
 
         return app.descendants(matching: .any).matching(combinedPredicate)
+    }
+    
+    private var sectionContainers: XCUIElementQuery {
+        app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", Identifiers.homeSectionPrefix))
+    }
+
+    private var currentVisibleSection: XCUIElement {
+        let visibleCandidates = min(sectionContainers.count, 5)
+
+        for index in 0..<visibleCandidates {
+            let section = sectionContainers.element(boundBy: index)
+            if section.exists && section.isHittable {
+                return section
+            }
+        }
+
+        return sectionContainers.firstMatch
+    }
+
+    private func sectionRoot(_ sectionId: String) -> XCUIElement {
+        app.descendants(matching: .any)["home.section.\(sectionId)"]
     }
 
     @discardableResult
@@ -125,6 +148,36 @@ final class HomeScreen: BaseScreen {
             line: line
         )
 
+        return self
+    }
+    
+    @discardableResult
+    func assertCurrentSectionIs(_ sectionId: String, timeout: TimeInterval = 10) -> Self {
+        sectionRoot(sectionId).waitUntilExists(timeout: timeout)
+        return self
+    }
+
+    @discardableResult
+    func swipeToNextSection(timeout: TimeInterval = 10) -> Self {
+        let visibleSection = currentVisibleSection
+        visibleSection.waitUntilExists(timeout: timeout)
+        visibleSection.swipeLeft()
+        return self
+    }
+    
+    @discardableResult
+    func assertCurrentNavigationTitleIs(
+        _ title: String,
+        timeout: TimeInterval = 10
+    ) -> Self {
+        let header = app.staticTexts[title]
+        header.waitUntilExists(timeout: timeout)
+        return self
+    }
+    
+    @discardableResult
+    func assertHomeScreenIsDisplayed(timeout: TimeInterval = 10) -> Self {
+        waitUntilLoaded(timeout: timeout)
         return self
     }
 }

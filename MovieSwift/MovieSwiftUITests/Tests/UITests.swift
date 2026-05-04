@@ -95,5 +95,55 @@ final class UITests: XCTestCase {
             .assertDisplayedMoviesChanged(comparedTo: initialSnapshot)
     }
     
+    func test_homeSwipeChangesSections() {
+        let app = XCUIApplication()
+        app.launch()
+
+        app
+            .on(HomeScreen.self)
+            .waitForHomeFeedToLoad()
+            .assertCurrentSectionIs("nowplaying")
+        
+            .swipeToNextSection()
+            .waitForHomeFeedToLoad()
+            .assertCurrentSectionIs("upcoming")
+                
+            .swipeToNextSection()
+            .waitForHomeFeedToLoad()
+            .assertCurrentSectionIs("trending")
+            
+            .swipeToNextSection()
+            .waitForHomeFeedToLoad()
+            .assertCurrentSectionIs("popular")
+            .assertCurrentNavigationTitleIs("Popular")
+        
+            .swipeToNextSection()
+            .waitForHomeFeedToLoad()
+            .assertCurrentSectionIs("toprated")
+            .assertCurrentNavigationTitleIs("Top Rated")
+        
+            .swipeToNextSection()
+            .assertCurrentSectionIs("genres")
+            .assertCurrentNavigationTitleIs("Genres")
+
+    }
+    
+    func test_tabBar() {
+        let app = XCUIApplication()
+        app.launch()
+
+        app
+            .on(HomeScreen.self)
+            .waitForHomeFeedToLoad()
+            .goToDiscover()
+            .assertDiscoverScreenIsDisplayed()
+            .goToFanClub()
+            .assertFanClubScreenIsDisplayed()
+            .goToMyLists()
+            .assertMyListsScreenIsDisplayed()
+            .goToMovies()
+            .assertHomeScreenIsDisplayed()
+    }
+    
 }
 

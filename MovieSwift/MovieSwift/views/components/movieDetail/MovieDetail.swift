@@ -212,7 +212,7 @@ struct MovieDetail: ConnectedView {
         }
     }
     
-    
+        
 }
 
 // MARK: - Preview

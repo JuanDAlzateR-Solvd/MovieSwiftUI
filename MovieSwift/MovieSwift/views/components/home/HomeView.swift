@@ -83,15 +83,19 @@ struct TabbarView: View {
             MoviesHome().tabItem{
                 self.tabbarItem(text: "Movies", image: "film")
             }.tag(Tab.movies)
+                .accessibilityIdentifier("tab.movies")
             DiscoverView().tabItem{
                 self.tabbarItem(text: "Discover", image: "square.stack")
             }.tag(Tab.discover)
+                .accessibilityIdentifier("tab.discover")
             FanClubHome().tabItem{
                 self.tabbarItem(text: "Fan Club", image: "star.circle.fill")
             }.tag(Tab.fanClub)
+                .accessibilityIdentifier("tab.fanClub")
             MyLists().tabItem{
                 self.tabbarItem(text: "My Lists", image: "heart.circle")
             }.tag(Tab.myLists)
+                .accessibilityIdentifier("tab.myLists")
         }
     }
 }

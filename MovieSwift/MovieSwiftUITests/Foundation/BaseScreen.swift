@@ -20,6 +20,10 @@ class BaseScreen: Screen {
     var loadableElement: XCUIElement {
         preconditionFailure("\(String(describing: Self.self)) must override loadableElement.")
     }
+    
+    var tabBar: TabBarComponent {
+        TabBarComponent(app: app)
+    }
 
     @discardableResult
     func waitUntilLoaded(timeout: TimeInterval = 10) -> Self {
@@ -37,10 +41,39 @@ class BaseScreen: Screen {
 
         return self
     }
-
+    
     @discardableResult
     func on<T: Screen>(_ screenType: T.Type, timeout: TimeInterval = 10) -> T {
         let screen = T(app: app)
         return screen.waitUntilLoaded(timeout: timeout)
     }
+      
+//    @discardableResult
+//    func goToDiscover() -> Screen {
+//        TabBarComponent(app: app).tapDiscover()
+//        return on(DiscoverScreen.self)
+//    }
+    
+    @discardableResult
+    func goToMovies() -> HomeScreen {
+        TabBarComponent(app: app).tapMovies()
+    }
+    
+    @discardableResult
+    func goToDiscover() -> DiscoverScreen {
+        TabBarComponent(app: app).tapDiscover()
+    }
+    
+    @discardableResult
+    func goToFanClub() -> FanClubScreen {
+        TabBarComponent(app: app).tapFanClub()
+    
+    }
+    
+    @discardableResult
+    func goToMyLists() -> MyListsScreen {
+        TabBarComponent(app: app).tapMyLists()
+    }
+    
+    
 }

@@ -8,26 +8,12 @@
 
 import XCTest
 
-final class UITests: XCTestCase {
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-    
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
-
+final class UITests: BaseUITestCase {
+      
     func test_appLaunches() {
-        let app = XCUIApplication()
-        app.launch()
-        XCTAssertTrue(app.exists)
+//        let app = XCUIApplication()
+//        app.launch()
+//        XCTAssertTrue(app.exists)
         
         // Create a predicate to look for identifiers that start with "movies.movie."
         let predicate = NSPredicate(format: "identifier BEGINSWITH %@", "movies.movie.")
@@ -44,9 +30,9 @@ final class UITests: XCTestCase {
     }
     
     func test_openMovieFromHome() {
-        let app = XCUIApplication()
-        app.launch()
-        XCTAssertTrue(app.exists)
+//        let app = XCUIApplication()
+//        app.launch()
+//        XCTAssertTrue(app.exists)
         
         app
             .on(HomeScreen.self)
@@ -57,8 +43,8 @@ final class UITests: XCTestCase {
     }
     
     func test_homeFeedLoads() {
-           let app = XCUIApplication()
-           app.launch()
+//           let app = XCUIApplication()
+//           app.launch()
 
            app
                .on(HomeScreen.self)
@@ -66,8 +52,8 @@ final class UITests: XCTestCase {
        }
 
     func test_openMovieDetailsFromSearchResults() {
-        let app = XCUIApplication()
-        app.launch()
+//        let app = XCUIApplication()
+//        app.launch()
 
         app
             .on(HomeScreen.self)
@@ -80,8 +66,8 @@ final class UITests: XCTestCase {
     }
     
     func test_searchChangesDisplayedContent() {
-        let app = XCUIApplication()
-        app.launch()
+//        let app = XCUIApplication()
+//        app.launch()
 
         let homeScreen = app
             .on(HomeScreen.self)
@@ -96,8 +82,8 @@ final class UITests: XCTestCase {
     }
     
     func test_homeSwipeChangesSections() {
-        let app = XCUIApplication()
-        app.launch()
+//        let app = XCUIApplication()
+//        app.launch()
 
         app
             .on(HomeScreen.self)
@@ -129,8 +115,8 @@ final class UITests: XCTestCase {
     }
     
     func test_tabBar() {
-        let app = XCUIApplication()
-        app.launch()
+//        let app = XCUIApplication()
+//        app.launch()
 
         app
             .on(HomeScreen.self)

@@ -27,25 +27,30 @@ class BaseScreen: Screen {
 
     @discardableResult
     func waitUntilLoaded(timeout: TimeInterval = 10) -> Self {
-        let screenLoaded = loadableElement.waitForExistence(timeout: timeout)
+        TestTrace.step("\(String(describing: Self.self)): wait until loaded"){
+            let screenLoaded = loadableElement.waitForExistence(timeout: timeout)
 
-        XCTAssertTrue(
-            screenLoaded,
-            """
-            Failed to load screen: \(String(describing: type(of: self))).
-            Expected anchor element did not appear within \(timeout) seconds.
-            """,
-            file: #filePath,
-            line: #line
-        )
+            XCTAssertTrue(
+                screenLoaded,
+                """
+                Failed to load screen: \(String(describing: type(of: self))).
+                Expected anchor element did not appear within \(timeout) seconds.
+                """,
+                file: #filePath,
+                line: #line
+            )
+        }
 
         return self
     }
     
     @discardableResult
     func on<T: Screen>(_ screenType: T.Type, timeout: TimeInterval = 10) -> T {
-        let screen = T(app: app)
-        return screen.waitUntilLoaded(timeout: timeout)
+        TestTrace.step("Navigate context to \(String(describing: screenType))"){
+            let screen = T(app: app)
+            return screen.waitUntilLoaded(timeout: timeout)
+        }
+
     }
       
 //    @discardableResult
@@ -56,23 +61,31 @@ class BaseScreen: Screen {
     
     @discardableResult
     func goToMovies() -> HomeScreen {
-        TabBarComponent(app: app).tapMovies()
+        TestTrace.step("TabBar: go to Movies") {
+            TabBarComponent(app: app).tapMovies()
+        }
     }
     
     @discardableResult
     func goToDiscover() -> DiscoverScreen {
-        TabBarComponent(app: app).tapDiscover()
+        TestTrace.step("TabBar: go to Discover") {
+            TabBarComponent(app: app).tapDiscover()
+        }
     }
     
     @discardableResult
     func goToFanClub() -> FanClubScreen {
-        TabBarComponent(app: app).tapFanClub()
+        TestTrace.step("TabBar: go to Fan Club") {
+            TabBarComponent(app: app).tapFanClub()
+        }
     
     }
     
     @discardableResult
     func goToMyLists() -> MyListsScreen {
-        TabBarComponent(app: app).tapMyLists()
+        TestTrace.step("TabBar: go to My Lists") {
+            TabBarComponent(app: app).tapMyLists()
+        }
     }
     
     

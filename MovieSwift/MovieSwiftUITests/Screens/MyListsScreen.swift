@@ -18,3 +18,4 @@ final class MyListsScreen: BaseScreen {
         return self
     }
 }
+

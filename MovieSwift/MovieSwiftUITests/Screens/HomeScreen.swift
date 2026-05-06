@@ -74,41 +74,49 @@ final class HomeScreen: BaseScreen {
 
     @discardableResult
     func waitForHomeFeedToLoad(timeout: TimeInterval = 10) -> Self {
-        waitUntilLoaded(timeout: timeout)
+        TestTrace.step("Home: wait for home feed to load") {
+            waitUntilLoaded(timeout: timeout)
+        }
         return self
     }
 
     @discardableResult
     func tapOnFirstMovie(timeout: TimeInterval = 10) -> Self {
-        let firstMovie = movieItems.firstMatch
-        firstMovie.waitUntilExists(timeout: timeout)
-        firstMovie.tapWhenHittable(timeout: timeout)        
+        TestTrace.step("Home: tap on first movie") {
+            let firstMovie = movieItems.firstMatch
+            firstMovie.waitUntilExists(timeout: timeout)
+            firstMovie.tapWhenHittable(timeout: timeout)
+        }
         return self
     }
 
     @discardableResult
     func searchMovie(_ query: String, timeout: TimeInterval = 10) -> Self {
-        lastSearchQuery = query
-        searchField.waitUntilExists(timeout: timeout)
-        searchField.typeTextWhenHittable(query, timeout: timeout)
+        TestTrace.step("Home: search movie '\(query)'") {
+            lastSearchQuery = query
+            searchField.waitUntilExists(timeout: timeout)
+            searchField.typeTextWhenHittable(query, timeout: timeout)
+        }
         return self
     }
 
     @discardableResult
     func waitForSearchResultsToLoad(timeout: TimeInterval = 10) -> Self {
-        guard let query = lastSearchQuery, !query.isEmpty else {
-            XCTFail("Search query was not set before waiting for search results.")
-            return self
+        TestTrace.step("Home: wait for search results to load") {
+            guard let query = lastSearchQuery, !query.isEmpty else {
+                XCTFail("Search query was not set before waiting for search results.")
+                return
+            }
+            
+            app.dismissKeyboardIfPresent()
+            
+            let resultsHeader = app.staticTexts["Results for \(query)"]
+            resultsHeader.waitUntilExists(timeout: timeout)
+            
+            let firstMovie = movieItems.firstMatch
+            firstMovie.waitUntilExists(timeout: timeout)
         }
         
-        app.dismissKeyboardIfPresent()
-        
-        let resultsHeader = app.staticTexts["Results for \(query)"]
-        resultsHeader.waitUntilExists(timeout: timeout)
-
-        let firstMovie = movieItems.firstMatch
-        firstMovie.waitUntilExists(timeout: timeout)
-
         return self
     }
         

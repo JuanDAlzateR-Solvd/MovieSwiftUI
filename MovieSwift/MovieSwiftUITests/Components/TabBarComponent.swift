@@ -16,10 +16,14 @@ final class TabBarComponent {
 //        static let discover = "tab.discover"
 //        static let fanClub = "tab.fanClub"
 //        static let myLists = "tab.myLists"
-        static let movies = "film"
-        static let discover = "square.stack"
-        static let fanClub = "star.circle.fill"
-        static let myLists = "heart.circle"
+//        static let movies = "film"
+//        static let discover = "square.stack"
+//        static let fanClub = "star.circle.fill"
+//        static let myLists = "heart.circle"
+        static let movies = "Movies"
+        static let discover = "Discover"
+        static let fanClub = "Fan Club"
+        static let myLists = "My Lists"
     }
 
     init(app: XCUIApplication) {
@@ -28,23 +32,23 @@ final class TabBarComponent {
 
     private var tabBar: XCUIElement {
           app.tabBars.firstMatch
-      }
+    }
 
-      private var moviesTab: XCUIElement {
-          tabBar.buttons["Movies"]
-      }
+    private var moviesTab: XCUIElement {
+        tabBar.buttons[Identifiers.movies]
+    }
 
-      private var discoverTab: XCUIElement {
-          tabBar.buttons["Discover"]
-      }
+    private var discoverTab: XCUIElement {
+        tabBar.buttons[Identifiers.discover]
+    }
 
-      private var fanClubTab: XCUIElement {
-          tabBar.buttons["Fan Club"]
-      }
+    private var fanClubTab: XCUIElement {
+        tabBar.buttons[Identifiers.fanClub]
+    }
 
-      private var myListsTab: XCUIElement {
-          tabBar.buttons["My Lists"]
-      }
+    private var myListsTab: XCUIElement {
+        tabBar.buttons[Identifiers.myLists]
+    }
 
 
     @discardableResult

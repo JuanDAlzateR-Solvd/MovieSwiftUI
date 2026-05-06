@@ -20,7 +20,11 @@ extension XCUIElement {
 
         XCTAssertTrue(
             exists,
-            "Expected element to exist within \(timeout) seconds, but it did not appear.",
+            """
+            Expected element to exist within \(timeout) seconds, but it did not appear.
+            Identifier: \(identifier)
+            Element: \(self)
+            """,
             file: file,
             line: line
         )
@@ -41,7 +45,11 @@ extension XCUIElement {
         XCTAssertEqual(
             result,
             .completed,
-            "Expected element to become hittable within \(timeout) seconds, but it did not.",
+            """
+            Expected element to become hittable within \(timeout) seconds, but it did not.
+            Identifier: \(identifier)
+            Element: \(self)
+            """,
             file: file,
             line: line
         )

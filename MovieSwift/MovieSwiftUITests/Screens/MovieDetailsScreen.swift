@@ -31,8 +31,10 @@ final class MovieDetailsScreen: BaseScreen {
 
     @discardableResult
     func assertMovieDetailsAreDisplayed(timeout: TimeInterval = 10) -> Self {
-        waitUntilLoaded(timeout: timeout)
-        addButton.waitUntilExists(timeout: timeout)
+        TestTrace.step("Movie Details: assert details screen is displayed") {
+            waitUntilLoaded(timeout: timeout)
+            addButton.waitUntilExists(timeout: timeout)
+        }
         return self
     }
 }

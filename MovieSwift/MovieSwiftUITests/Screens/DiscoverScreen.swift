@@ -10,7 +10,7 @@ import XCTest
 
 final class DiscoverScreen: BaseScreen {
     override var loadableElement: XCUIElement {
-        app.images["tab.discover"]
+        app.images["tab.discover2"]
     }
     
     @discardableResult

@@ -11,19 +11,20 @@ import XCTest
 final class TabBarComponent {
     private let app: XCUIApplication
 
+//Tried with different identifiers.
     private enum Identifiers {
-//        static let movies = "tab.movies"
-//        static let discover = "tab.discover"
-//        static let fanClub = "tab.fanClub"
-//        static let myLists = "tab.myLists"
+        // static let movies = "tab.movies"
+        // static let discover = "tab.discover"
+        // static let fanClub = "tab.fanClub"
+        // static let myLists = "tab.myLists"
 //        static let movies = "film"
 //        static let discover = "square.stack"
 //        static let fanClub = "star.circle.fill"
 //        static let myLists = "heart.circle"
-        static let movies = "Movies"
-        static let discover = "Discover"
-        static let fanClub = "Fan Club"
-        static let myLists = "My Lists"
+       static let movies = "Movies"
+       static let discover = "Discover"
+       static let fanClub = "Fan Club"
+       static let myLists = "My Lists"
     }
 
     init(app: XCUIApplication) {

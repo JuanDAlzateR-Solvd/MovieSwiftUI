@@ -11,9 +11,8 @@ import XCTest
 final class UITests: BaseUITestCase {
       
     func test_appLaunches() {
-//        let app = XCUIApplication()
-//        app.launch()
-//        XCTAssertTrue(app.exists)
+
+        XCTAssertTrue(app.exists)
         
         // Create a predicate to look for identifiers that start with "movies.movie."
         let predicate = NSPredicate(format: "identifier BEGINSWITH %@", "movies.movie.")
@@ -30,9 +29,6 @@ final class UITests: BaseUITestCase {
     }
     
     func test_openMovieFromHome() {
-//        let app = XCUIApplication()
-//        app.launch()
-//        XCTAssertTrue(app.exists)
         
         app
             .on(HomeScreen.self)
@@ -43,17 +39,13 @@ final class UITests: BaseUITestCase {
     }
     
     func test_homeFeedLoads() {
-//           let app = XCUIApplication()
-//           app.launch()
 
-           app
-               .on(HomeScreen.self)
-               .waitForHomeFeedToLoad()
+        app
+           .on(HomeScreen.self)
+           .waitForHomeFeedToLoad()
        }
 
     func test_openMovieDetailsFromSearchResults() {
-//        let app = XCUIApplication()
-//        app.launch()
 
         app
             .on(HomeScreen.self)
@@ -66,8 +58,6 @@ final class UITests: BaseUITestCase {
     }
     
     func test_searchChangesDisplayedContent() {
-//        let app = XCUIApplication()
-//        app.launch()
 
         let homeScreen = app
             .on(HomeScreen.self)
@@ -82,8 +72,6 @@ final class UITests: BaseUITestCase {
     }
     
     func test_homeSwipeChangesSections() {
-//        let app = XCUIApplication()
-//        app.launch()
 
         app
             .on(HomeScreen.self)
@@ -115,8 +103,6 @@ final class UITests: BaseUITestCase {
     }
     
     func test_tabBar() {
-//        let app = XCUIApplication()
-//        app.launch()
 
         app
             .on(HomeScreen.self)

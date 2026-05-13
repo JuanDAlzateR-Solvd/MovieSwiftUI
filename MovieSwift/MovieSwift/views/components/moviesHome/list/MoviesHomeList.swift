@@ -27,6 +27,7 @@ struct MoviesHomeList: ConnectedView {
         MoviesList(movies: props.movies,
                    displaySearch: true,
                    pageListener: pageListener)
+        .accessibilityIdentifier("home.section.\(menu.title().lowercased().replacingOccurrences(of: " ", with: ""))")
     }
 }
 

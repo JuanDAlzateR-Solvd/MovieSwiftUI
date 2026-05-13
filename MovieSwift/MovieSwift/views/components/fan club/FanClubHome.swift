@@ -34,7 +34,8 @@ struct FanClubHome: ConnectedView {
                         NavigationLink(destination: PeopleDetail(peopleId: people)) {
                             PeopleRow(peopleId: people)
                         }
-                    }.onDelete(perform: { index in
+                    }
+                    .onDelete(perform: { index in
                         props.dispatch(PeopleActions.RemoveFromFanClub(people: props.peoples[index.first!]))
                     })
                 }
@@ -43,6 +44,7 @@ struct FanClubHome: ConnectedView {
                     ForEach(props.popular, id: \.self) { people in
                         NavigationLink(destination: PeopleDetail(peopleId: people)) {
                             PeopleRow(peopleId: people)
+//                                .accessibilityIdentifier("\(people)")
                         }
                     }
                 }

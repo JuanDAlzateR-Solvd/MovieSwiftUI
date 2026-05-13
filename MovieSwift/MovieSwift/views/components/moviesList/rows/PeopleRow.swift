@@ -45,6 +45,7 @@ struct PeopleRow : ConnectedView {
                         .foregroundColor(.steam_gold)
                         .lineLimit(1)
                         .animation(.spring())
+                        .accessibilityIdentifier("fanClub.people.\(peopleId)")
                 }
                 Text(props.people.knownForText ?? "")
                     .foregroundColor(.secondary)

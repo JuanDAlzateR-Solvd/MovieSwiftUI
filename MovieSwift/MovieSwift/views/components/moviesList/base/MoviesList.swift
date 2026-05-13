@@ -57,6 +57,7 @@ struct MoviesList: ConnectedView {
             NavigationLink(destination: MovieDetail(movieId: id), tag: String(id), selection:$selectedItem) {
                 MovieRow(movieId: id)
             }
+            .accessibilityIdentifier("movies.movie.\(id)")
         }
     }
     

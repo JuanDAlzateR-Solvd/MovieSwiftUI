@@ -52,6 +52,7 @@ struct MoviesHome : View {
             ForEach(MoviesMenu.allCases, id: \.self) { menu in
                 if menu == .genres {
                     GenresList()
+                        .accessibilityIdentifier("home.section.genres")
                         .tag(menu)
                 } else {
                     MoviesHomeList(menu: .constant(menu),

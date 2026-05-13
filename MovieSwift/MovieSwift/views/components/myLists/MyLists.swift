@@ -46,7 +46,7 @@ struct MyLists : ConnectedView {
                 self.isEditingFormPresented = true
             }) {
                 Text("Create custom list").foregroundColor(.steam_blue)
-            }
+            }.accessibilityIdentifier("myLists.customList")
             ForEach(props.customLists) { list in
                 NavigationLink(destination: CustomListDetail(listId: list.id)) {
                     CustomListRow(list: list)

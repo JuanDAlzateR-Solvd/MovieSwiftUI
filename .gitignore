@@ -69,3 +69,7 @@ fastlane/test_output
 .DS_Store
 
 *ignore.swift
+
+.claude/
+CLAUDE.md
+*REPORT.md

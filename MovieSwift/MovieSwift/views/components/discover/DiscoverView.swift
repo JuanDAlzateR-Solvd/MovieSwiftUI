@@ -232,6 +232,7 @@ struct DiscoverView: ConnectedView {
             self.fetchRandomMovies(props: props, force: false, filter: props.filter)
             props.dispatch(MoviesActions.FetchGenres())
         }
+        .accessibilityIdentifier("discover.screen")
     }
 }
 

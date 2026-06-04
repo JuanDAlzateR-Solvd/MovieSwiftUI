@@ -12,9 +12,9 @@ import XCTest
 final class MovieDetailsScreen: BaseScreen {
 
     private enum Identifiers {
-        static let screen = "movieDetails.screen"
-        static let addButton = "movieDetails.addButton"
-        static let overview = "movieDetails.overview"
+        static let screen = "movieDetail.screen"
+        static let addButton = "movieDetail.addButton"
+        static let overview = "movieDetail.overview"
     }
 
     private var addButton: XCUIElement {

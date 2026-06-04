@@ -81,23 +81,23 @@ struct TabbarView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             MoviesHome().tabItem{
-                self.tabbarItem(text: "Movies", image: "film").accessibilityIdentifier("tab.movies")
+                self.tabbarItem(text: "Movies", image: "film")
             }.tag(Tab.movies)
-                .accessibilityIdentifier("tab.movies2")
+                .accessibilityIdentifier("tab.movies")
             DiscoverView().tabItem{
-                self.tabbarItem(text: "Discover", image: "square.stack").accessibilityIdentifier("tab.discover")
+                self.tabbarItem(text: "Discover", image: "square.stack")
             }.tag(Tab.discover)
-                .accessibilityIdentifier("tab.discover2")
-                
+                .accessibilityIdentifier("tab.discover")
+
             FanClubHome().tabItem{
-                self.tabbarItem(text: "Fan Club", image: "star.circle.fill").accessibilityIdentifier("tab.fanClub")
+                self.tabbarItem(text: "Fan Club", image: "star.circle.fill")
             }.tag(Tab.fanClub)
-                .accessibilityIdentifier("tab.fanClub2")
-         
+                .accessibilityIdentifier("tab.fanClub")
+
             MyLists().tabItem{
-                self.tabbarItem(text: "My Lists", image: "heart.circle").accessibilityIdentifier("tab.myLists")
+                self.tabbarItem(text: "My Lists", image: "heart.circle")
             }.tag(Tab.myLists)
-            .accessibilityIdentifier("tab.myLists2")
+            .accessibilityIdentifier("tab.myLists")
         }
         .accessibilityIdentifier("tab.tabbar")
     }

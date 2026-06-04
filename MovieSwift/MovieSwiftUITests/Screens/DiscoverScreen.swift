@@ -9,8 +9,12 @@
 import XCTest
 
 final class DiscoverScreen: BaseScreen {
+    private enum Identifiers {
+        static let screen = "discover.screen"
+    }
+
     override var loadableElement: XCUIElement {
-        app.images["tab.discover2"]
+        app.descendants(matching: .any)[Identifiers.screen]
     }
     
     @discardableResult

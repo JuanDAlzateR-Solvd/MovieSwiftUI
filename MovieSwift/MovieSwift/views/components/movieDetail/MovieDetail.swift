@@ -142,7 +142,7 @@ struct MovieDetail: ConnectedView {
             }
             if !props.movie.overview.isEmpty {
                 MovieOverview(movie: props.movie)
-                    .accessibilityIdentifier("movieDetails.overview")
+                    .accessibilityIdentifier("movieDetail.overview")
             }
         }
     }
@@ -183,12 +183,12 @@ struct MovieDetail: ConnectedView {
                 topSection(props: props)
                 bottomSection(props: props)
             }
-            .accessibilityIdentifier("movieDetails.screen")
+            .accessibilityIdentifier("movieDetail.screen")
             .navigationBarTitle(Text(props.movie.userTitle), displayMode: .large)
             .navigationBarItems(trailing: Button(action: onAddButton) {
                 Image(systemName: "text.badge.plus").imageScale(.large)
                 }
-                .accessibilityIdentifier("movieDetails.addButton")
+                .accessibilityIdentifier("movieDetail.addButton")
             )
             .onAppear {
                 self.fetchMovieDetails()

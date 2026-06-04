@@ -40,7 +40,7 @@ struct MoviesHomeGridMoviesRow: ConnectedView {
                             ListImage(movieId: movie.id)
                         }
                     }
-                    .accessibilityIdentifier("home.movie.\(movie.id)")
+                    .accessibilityIdentifier("movies.movie.\(movie.id)")
                 }
             }
             .frame(height: 150)

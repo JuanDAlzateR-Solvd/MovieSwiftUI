@@ -44,7 +44,7 @@ struct FanClubHome: ConnectedView {
                     ForEach(props.popular, id: \.self) { people in
                         NavigationLink(destination: PeopleDetail(peopleId: people)) {
                             PeopleRow(peopleId: people)
-//                                .accessibilityIdentifier("\(people)")
+                                .accessibilityIdentifier("fanClub.people.\(people)")
                         }
                     }
                 }
@@ -61,6 +61,7 @@ struct FanClubHome: ConnectedView {
             .navigationBarTitle("Fan Club")
             .animation(.spring())
         }
+        .accessibilityIdentifier("fanClub.screen")
         .onAppear {
             if self.currentPage == 1{
                 props.dispatch(PeopleActions.FetchPopular(page: self.currentPage))

@@ -11,20 +11,14 @@ import XCTest
 final class TabBarComponent {
     private let app: XCUIApplication
 
-//Tried with different identifiers.
+    // SwiftUI on iOS 13/14 does not propagate .accessibilityIdentifier set inside .tabItem{}
+    // to the underlying UITabBarItem that XCUITest sees, so tab buttons must be located by
+    // their display label. These constants are the single source of truth for those labels.
     private enum Identifiers {
-        // static let movies = "tab.movies"
-        // static let discover = "tab.discover"
-        // static let fanClub = "tab.fanClub"
-        // static let myLists = "tab.myLists"
-//        static let movies = "film"
-//        static let discover = "square.stack"
-//        static let fanClub = "star.circle.fill"
-//        static let myLists = "heart.circle"
-       static let movies = "Movies"
-       static let discover = "Discover"
-       static let fanClub = "Fan Club"
-       static let myLists = "My Lists"
+        static let movies = "Movies"
+        static let discover = "Discover"
+        static let fanClub = "Fan Club"
+        static let myLists = "My Lists"
     }
 
     init(app: XCUIApplication) {

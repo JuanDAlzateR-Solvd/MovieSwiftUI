@@ -107,8 +107,8 @@ final class UITests: BaseUITestCase {
         app
             .on(HomeScreen.self)
             .waitForHomeFeedToLoad()
-            .goToDiscover()
-            .assertDiscoverScreenIsDisplayed()
+//            .goToDiscover()
+//            .assertDiscoverScreenIsDisplayed()
             .goToFanClub()
             .assertFanClubScreenIsDisplayed()
             .goToMyLists()

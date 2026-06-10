@@ -39,6 +39,7 @@ class BaseScreen: Screen {
                 file: #filePath,
                 line: #line
             )
+
         }
 
         return self
@@ -61,7 +62,7 @@ class BaseScreen: Screen {
     
     @discardableResult
     func goToMovies() -> HomeScreen {
-        TestTrace.step("TabBar: go to Movies") {
+        TestTrace.step("TabBar: go to Movies") {            
             TabBarComponent(app: app).tapMovies()
         }
     }

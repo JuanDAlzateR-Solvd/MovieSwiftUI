@@ -18,14 +18,14 @@ let store = Store<AppState>(reducer: appStateReducer,
 @main
 struct HomeView: App {
     let archiveTimer: Timer
-    
+
     init() {
         archiveTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true, block: { _ in
             store.state.archiveState()
         })
         setupApperance()
     }
-    
+
     #if targetEnvironment(macCatalyst)
     var body: some Scene {
         WindowGroup {
@@ -43,21 +43,21 @@ struct HomeView: App {
         }
     }
     #endif
-    
+
     private func setupApperance() {
         UINavigationBar.appearance().largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
             NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 40)!]
-        
+
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
             NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 18)!]
-        
+
         UIBarButtonItem.appearance().setTitleTextAttributes([
                                                                 NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
                                                                 NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 16)!],
                                                             for: .normal)
-        
+
         UIWindow.appearance().tintColor = UIColor(named: "steam_gold")
     }
 }
@@ -65,11 +65,11 @@ struct HomeView: App {
 // MARK: - iOS implementation
 struct TabbarView: View {
     @State var selectedTab = Tab.movies
-    
+
     enum Tab: Int {
         case movies, discover, fanClub, myLists
     }
-    
+
     func tabbarItem(text: String, image: String) -> some View {
         VStack {
             Image(systemName: image)
@@ -77,36 +77,29 @@ struct TabbarView: View {
             Text(text)
         }
     }
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
-            MoviesHome().tabItem{
-                self.tabbarItem(text: "Movies", image: "film")
+            MoviesHome().tabItem {
+                self.tabbarItem(text: "Movies", image: "film").accessibilityIdentifier("tab.movies")
             }.tag(Tab.movies)
-                .accessibilityIdentifier("tab.movies")
-            DiscoverView().tabItem{
-                self.tabbarItem(text: "Discover", image: "square.stack")
+            DiscoverView().tabItem {
+                self.tabbarItem(text: "Discover", image: "square.stack").accessibilityIdentifier("tab.discover")
             }.tag(Tab.discover)
-                .accessibilityIdentifier("tab.discover")
-
-            FanClubHome().tabItem{
-                self.tabbarItem(text: "Fan Club", image: "star.circle.fill")
+            FanClubHome().tabItem {
+                self.tabbarItem(text: "Fan Club", image: "star.circle.fill").accessibilityIdentifier("tab.fanClub")
             }.tag(Tab.fanClub)
-                .accessibilityIdentifier("tab.fanClub")
-
-            MyLists().tabItem{
-                self.tabbarItem(text: "My Lists", image: "heart.circle")
+            MyLists().tabItem {
+                self.tabbarItem(text: "My Lists", image: "heart.circle").accessibilityIdentifier("tab.myLists")
             }.tag(Tab.myLists)
-            .accessibilityIdentifier("tab.myLists")
         }
-        .accessibilityIdentifier("tab.tabbar")
     }
 }
 
 // MARK: - MacOS implementation
 struct SplitView: View {
     @State var selectedMenu: OutlineMenu = .popular
-    
+
     @ViewBuilder
     var body: some View {
         HStack(spacing: 0) {

@@ -10,7 +10,7 @@ import XCTest
 
 final class MyListsScreen: BaseScreen {
     override var loadableElement: XCUIElement {
-        app.buttons["myLists.customList"]
+        app.buttons[AccessibilityIdentifiers.MyLists.createList]
     }
     @discardableResult
     func assertMyListsScreenIsDisplayed(timeout: TimeInterval = 10) -> Self {

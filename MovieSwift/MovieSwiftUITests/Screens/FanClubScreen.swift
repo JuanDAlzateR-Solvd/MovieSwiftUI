@@ -10,18 +10,14 @@ import XCTest
 
 final class FanClubScreen: BaseScreen {
     
-    private enum Identifiers {
-        static let fabClubPeoplePrefix = "fanClub.people"
-    }
-    
     override var loadableElement: XCUIElement {
         people.firstMatch
     }
-    
+
     private var people: XCUIElementQuery {
         let fanClubPredicate = NSPredicate(
             format: "identifier BEGINSWITH %@",
-            Identifiers.fabClubPeoplePrefix
+            AccessibilityIdentifiers.FanClub.peoplePrefix
         )
         return app.descendants(matching: .any).matching(fanClubPredicate)
     }

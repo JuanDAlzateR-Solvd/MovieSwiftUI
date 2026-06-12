@@ -15,7 +15,7 @@ final class UITests: BaseUITestCase {
         XCTAssertTrue(app.exists)
         
         // Create a predicate to look for identifiers that start with "movies.movie."
-        let predicate = NSPredicate(format: "identifier BEGINSWITH %@", "movies.movie.")
+        let predicate = NSPredicate(format: "identifier BEGINSWITH %@", AccessibilityIdentifiers.Movies.moviePrefix)
         
         // Apply predicate to all elements (or specifically .buttons if they have that trait)
         let movieElements = app.buttons.matching(predicate)
@@ -107,12 +107,18 @@ final class UITests: BaseUITestCase {
         app
             .on(HomeScreen.self)
             .waitForHomeFeedToLoad()
-//            .goToDiscover()
-//            .assertDiscoverScreenIsDisplayed()
+            .goToDiscover()
+            .assertDiscoverScreenIsDisplayed()
+        
+            .on(DiscoverScreen.self)
             .goToFanClub()
             .assertFanClubScreenIsDisplayed()
+        
+            .on(FanClubScreen.self)
             .goToMyLists()
             .assertMyListsScreenIsDisplayed()
+        
+            .on(MyListsScreen.self)
             .goToMovies()
             .assertHomeScreenIsDisplayed()
     }

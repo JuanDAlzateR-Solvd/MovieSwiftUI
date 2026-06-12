@@ -9,12 +9,8 @@
 import XCTest
 
 final class DiscoverScreen: BaseScreen {
-    private enum Identifiers {
-        static let screen = "discover.screen"
-    }
-
     override var loadableElement: XCUIElement {
-        app.descendants(matching: .any)[Identifiers.screen]
+        app.descendants(matching: .any)[AccessibilityIdentifiers.Discover.screen]
     }
     
     @discardableResult

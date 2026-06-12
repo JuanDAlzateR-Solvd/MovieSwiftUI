@@ -11,22 +11,16 @@ import XCTest
 
 final class MovieDetailsScreen: BaseScreen {
 
-    private enum Identifiers {
-        static let screen = "movieDetail.screen"
-        static let addButton = "movieDetail.addButton"
-        static let overview = "movieDetail.overview"
-    }
-
     private var addButton: XCUIElement {
-        app.descendants(matching: .any)[Identifiers.addButton]
+        app.descendants(matching: .any)[AccessibilityIdentifiers.MovieDetail.addButton]
     }
 
     private var overview: XCUIElement {
-        app.descendants(matching: .any)[Identifiers.overview]
+        app.descendants(matching: .any)[AccessibilityIdentifiers.MovieDetail.overview]
     }
 
     override var loadableElement: XCUIElement {
-        app.descendants(matching: .any)[Identifiers.screen]
+        app.descendants(matching: .any)[AccessibilityIdentifiers.MovieDetail.screen]
     }
 
     @discardableResult

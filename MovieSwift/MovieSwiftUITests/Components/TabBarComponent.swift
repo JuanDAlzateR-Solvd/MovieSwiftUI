@@ -11,13 +11,6 @@ import XCTest
 final class TabBarComponent {
     private let app: XCUIApplication
 
-    private enum Identifiers {
-        static let movies   = "tab.movies"
-        static let discover = "tab.discover"
-        static let fanClub  = "tab.fanClub"
-        static let myLists  = "tab.myLists"
-    }
-
     init(app: XCUIApplication) {
         self.app = app
     }
@@ -27,18 +20,18 @@ final class TabBarComponent {
     }
 
     private var moviesTab: XCUIElement {
-        tabBar.buttons[Identifiers.movies]
+        tabBar.buttons[AccessibilityIdentifiers.Tab.movies]
     }
 
     private var discoverTab: XCUIElement {
-        tabBar.buttons[Identifiers.discover]
+        tabBar.buttons[AccessibilityIdentifiers.Tab.discover]
     }
 
-    private lazy var fanClubTab: XCUIElement = app.tabBars.buttons[Identifiers.fanClub]
+    private lazy var fanClubTab: XCUIElement = app.tabBars.buttons[AccessibilityIdentifiers.Tab.fanClub]
     
 
     private var myListsTab: XCUIElement {
-        tabBar.buttons[Identifiers.myLists]
+        tabBar.buttons[AccessibilityIdentifiers.Tab.myLists]
     }
 
 

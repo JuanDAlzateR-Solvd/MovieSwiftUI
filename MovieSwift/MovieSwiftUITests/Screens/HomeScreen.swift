@@ -15,17 +15,10 @@ final class HomeScreen: BaseScreen {
         let movieIdentifiers: [String]
     }
 
-    private enum Identifiers {
-        static let searchField = "movies.searchField"
-        static let homeMoviePrefix = "home.movie."
-        static let moviesMoviePrefix = "movies.movie."
-        static let homeSectionPrefix = "home.section."
-    }
-
     private var lastSearchQuery: String?
 
     private var searchField: XCUIElement {
-        app.textFields[Identifiers.searchField]     
+        app.textFields[AccessibilityIdentifiers.Movies.searchField]
     }
     
     override var loadableElement: XCUIElement {
@@ -35,12 +28,12 @@ final class HomeScreen: BaseScreen {
     private var movieItems: XCUIElementQuery {
         let homePredicate = NSPredicate(
             format: "identifier BEGINSWITH %@",
-            Identifiers.homeMoviePrefix
+            AccessibilityIdentifiers.Home.moviePrefix
         )
 
         let moviesPredicate = NSPredicate(
             format: "identifier BEGINSWITH %@",
-            Identifiers.moviesMoviePrefix
+            AccessibilityIdentifiers.Movies.moviePrefix
         )
 
         let combinedPredicate = NSCompoundPredicate(
@@ -52,7 +45,7 @@ final class HomeScreen: BaseScreen {
     
     private var sectionContainers: XCUIElementQuery {
         app.descendants(matching: .any)
-            .matching(NSPredicate(format: "identifier BEGINSWITH %@", Identifiers.homeSectionPrefix))
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", AccessibilityIdentifiers.Home.sectionPrefix))
     }
 
     private var currentVisibleSection: XCUIElement {
@@ -69,7 +62,7 @@ final class HomeScreen: BaseScreen {
     }
 
     private func sectionRoot(_ sectionId: String) -> XCUIElement {
-        app.descendants(matching: .any)["home.section.\(sectionId)"]
+        app.descendants(matching: .any)[AccessibilityIdentifiers.Home.section(sectionId)]
     }
 
     @discardableResult

@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "10BFF43A-9BE0-46AB-99F4-0A82C5F1D327",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "UITests\/test_searchChangesDisplayedContent()"
+      ],
+      "target" : {
+        "containerPath" : "container:MovieSwift.xcodeproj",
+        "identifier" : "69E7F19D2F902F77003B4445",
+        "name" : "MovieSwiftUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

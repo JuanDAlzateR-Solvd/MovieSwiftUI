@@ -24,6 +24,7 @@ jobs:
           xcrun simctl list devices available
 
       - name: Show Xcode project info
+        working-directory: MovieSwift
         run: |
           xcodebuild -list -project MovieSwift.xcodeproj
 

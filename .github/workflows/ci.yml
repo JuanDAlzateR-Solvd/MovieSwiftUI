@@ -41,6 +41,7 @@ jobs:
         working-directory: MovieSwift
         run: |
           rm -rf "$GITHUB_WORKSPACE/TestResults.xcresult"
+
           xcodebuild test \
             -project MovieSwift.xcodeproj  \
             -scheme MovieSwift \
@@ -49,9 +50,9 @@ jobs:
             CODE_SIGNING_ALLOWED=NO
       
       - name: Upload test results
-        working-directory: MovieSwift
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: TestResults.xcresult
           path: ${{ github.workspace }}/TestResults.xcresult
+          if-no-files-found: error

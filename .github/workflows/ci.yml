@@ -40,15 +40,19 @@ jobs:
       - name: Run tests
         working-directory: MovieSwift
         run: |
+          rm -rf "$GITHUB_WORKSPACE/TestResults.xcresult"
+
           xcodebuild test \
             -project MovieSwift.xcodeproj  \
             -scheme MovieSwift \
             -destination "platform=iOS Simulator,name=iPhone 16" \
+            -resultBundlePath "$GITHUB_WORKSPACE/TestResults.xcresult"
             CODE_SIGNING_ALLOWED=NO
       
       - name: Upload test results
+        working-directory: MovieSwift
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: TestResults.xcresult
-          path: TestResults.xcresult
+          path: ${{ github.workspace }}/TestResults.xcresult

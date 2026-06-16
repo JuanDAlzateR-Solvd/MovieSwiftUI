@@ -21,8 +21,17 @@ jobs:
       - name: Build
         working-directory: MovieSwift
         run: |
-          xcodebuild clean build \
+          xcodebuild build \
             -project MovieSwift.xcodeproj \
             -scheme MovieSwift \
             -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests
+        working-directory: MovieSwift
+        run: |
+          xcodebuild test \
+            -project MovieSwift.xcodeproj  \
+            -scheme MovieSwift \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=latest" \
             CODE_SIGNING_ALLOWED=NO

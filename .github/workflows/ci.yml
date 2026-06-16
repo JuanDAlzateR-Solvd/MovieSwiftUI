@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build And Test
     runs-on: macos-latest
 
     steps:
@@ -41,7 +41,6 @@ jobs:
         working-directory: MovieSwift
         run: |
           rm -rf "$GITHUB_WORKSPACE/TestResults.xcresult"
-
           xcodebuild test \
             -project MovieSwift.xcodeproj  \
             -scheme MovieSwift \
